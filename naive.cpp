@@ -2,8 +2,9 @@
 #include<chrono>
 
 using namespace std;
+using namespace std::chrono;
 
-#define V 4
+#define V 6
 
 
 int solve(int graph[][V], int start) {
@@ -31,12 +32,19 @@ int solve(int graph[][V], int start) {
 
 
 int main() {
-    int graph[][V] = { { 0, 1, 4, 6 },
-                       { 1, 0, 5, 2 },
-                       { 4, 5, 0, 3 },
-                       { 6, 2, 3, 0 } };
+    int graph[][V] = {	{ 0, 1, 7, 7, 7, 1 },
+                        { 1, 0, 1, 7, 5, 5 },
+                        { 7, 1, 0, 1, 5, 5 },
+                        { 7, 7, 1, 0, 1, 7 },
+                        { 7, 5, 5, 1, 0, 1 },
+                        { 1, 5, 5, 7, 1, 0 } 	};
 
     int start = 0;
-    cout << solve(graph, start) << "\n";
+    auto startTime = steady_clock::now();
+    int res = solve(graph, start);
+    auto finishTime = steady_clock::now();
+
+    cout << res << "\n";
+    cout << "Time : " << duration_cast<microseconds>(finishTime - startTime).count() << " microsecond";
     return 0;
 }

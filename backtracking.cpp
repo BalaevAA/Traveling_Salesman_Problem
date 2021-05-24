@@ -1,8 +1,10 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<chrono>
 
 using namespace std;
+using namespace std::chrono;
 
-#define V 4
+#define V 6
 
 void tsp(int graph[][V], vector<bool>& v, int currPos, int n, int count, int cost, int& ans){
 
@@ -23,11 +25,13 @@ void tsp(int graph[][V], vector<bool>& v, int currPos, int n, int count, int cos
 
 
 int main(){
-    int n = 4;
-    int graph[][V] = { { 0, 1, 4, 6 },
-                       { 1, 0, 5, 2 },
-                       { 4, 5, 0, 3 },
-                       { 6, 2, 3, 0 } };
+    int n = 6;
+    int graph[][V] = {	{ 0, 1, 0, 0, 0, 1 },
+                        { 1, 0, 1, 0, 5, 5 },
+                        { 0, 1, 0, 1, 5, 5 },
+                        { 0, 0, 1, 0, 1, 0 },
+                        { 0, 5, 5, 1, 0, 1 },
+                        { 1, 5, 5, 0, 1, 0 } 	};
 
     vector<bool> v(n);
     for (int i = 0; i < n; i++)
@@ -36,10 +40,12 @@ int main(){
     v[0] = true;
     int ans = INT_MAX;
 
+    auto startTime = steady_clock::now();
     tsp(graph, v, 0, n, 1, 0, ans);
+    auto finishTime = steady_clock::now();
 
-    cout << ans;
-
+    cout << ans << "\n";
+    cout << "Time : " << duration_cast<microseconds>(finishTime - startTime).count() << " microsecond";
     return 0;
 
 }
